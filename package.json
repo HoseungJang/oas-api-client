@@ -2,7 +2,9 @@
   "name": "oasis",
   "version": "0.0.0",
   "description": "API client generator based on OAS(OpenAPI Specification)",
-  "scripts": {},
+  "scripts": {
+    "format": "prettier --write 'src/**/*.ts'"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HoseungJang/oasis.git"
