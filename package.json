@@ -2,17 +2,33 @@
   "name": "oasis",
   "version": "0.0.0",
   "description": "API client generator based on OAS(OpenAPI Specification)",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HoseungJang/oasis.git"
   },
   "author": "Hoseung Jang",
   "license": "MIT",
-  "keywords": ["oas", "api client", "openapi"],
+  "keywords": [
+    "oas",
+    "api client",
+    "openapi"
+  ],
   "bugs": {
     "url": "https://github.com/HoseungJang/oasis/issues"
   },
-  "homepage": "https://github.com/HoseungJang/oasis#readme"
+  "homepage": "https://github.com/HoseungJang/oasis#readme",
+  "devDependencies": {
+    "@types/traverse": "^0.6.32",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "got": "^11.8.2",
+    "json-schema-to-typescript": "^10.1.4",
+    "lodash": "^4.17.21",
+    "openapi3-ts": "^2.0.1",
+    "traverse": "^0.6.6"
+  }
 }
