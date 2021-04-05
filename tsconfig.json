@@ -4,8 +4,7 @@
     "module": "commonjs",
     "outDir": "./dst",
     "strict": true,
-    "strictPropertyInitialization": false,
-    "declaration": true
+    "strictPropertyInitialization": false
   },
   "include": ["src"]
 }
