@@ -1,0 +1,18 @@
+{
+  "name": "oasis",
+  "version": "0.0.0",
+  "description": "API client generator based on OAS(OpenAPI Specification)",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoseungJang/oasis.git"
+  },
+  "author": "Hoseung Jang",
+  "license": "MIT",
+  "keywords": ["oas", "api client", "openapi"],
+  "bugs": {
+    "url": "https://github.com/HoseungJang/oasis/issues"
+  },
+  "homepage": "https://github.com/HoseungJang/oasis#readme"
+}
