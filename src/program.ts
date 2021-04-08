@@ -42,12 +42,24 @@ class Program {
     }
 
     if (fs.existsSync(outputDir)) {
-      fs.readdirSync;
-      fs.rmdirSync(outputDir);
+      this.deleteDirectoryRecursive(outputDir);
     }
     fs.mkdirSync(outputDir);
 
     await new ClientGenerator({ APIDefinition, outputDir }).generate();
+  }
+
+  private deleteDirectoryRecursive(path: string) {
+    fs.readdirSync(path).forEach((file) => {
+      const currentPath = `${path}/${file}`;
+
+      if (fs.lstatSync(currentPath).isDirectory()) {
+        this.deleteDirectoryRecursive(currentPath);
+      } else {
+        fs.unlinkSync(currentPath);
+      }
+    });
+    fs.rmdirSync(path);
   }
 }
 
