@@ -2,6 +2,7 @@ import { SchemasObject } from "openapi3-ts";
 import * as _ from "lodash";
 import * as traverse from "traverse";
 import { compile } from "json-schema-to-typescript";
+import * as prettier from "prettier";
 
 export class ModelsRenderer {
   private readonly schemas: SchemasObject;
@@ -37,6 +38,9 @@ export class ModelsRenderer {
       })
     );
 
-    return models.join("\n");
+    return prettier.format(models.join("\n"), {
+      semi: true,
+      parser: "babel-ts",
+    });
   }
 }
