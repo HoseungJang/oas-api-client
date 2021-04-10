@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "start": "ts-node src/Program.ts",
-    "format": "prettier --write 'src/**/*.ts'"
+    "format": "prettier --write 'src/**/*.ts'",
+    "build": "rm -rf dst && tsc"
   },
   "repository": {
     "type": "git",
