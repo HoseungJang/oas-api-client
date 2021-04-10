@@ -2,13 +2,10 @@ import * as _ from "lodash";
 
 import {
   PathsObject,
-  PathItemObject,
   ParameterObject,
   RequestBodyObject,
   OperationObject,
   SchemaObject,
-  ComponentsObject,
-  SchemasObject,
   ResponsesObject,
   ResponseObject,
 } from "openapi3-ts";
