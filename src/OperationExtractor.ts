@@ -10,6 +10,7 @@ import {
   ComponentsObject,
   SchemasObject,
   ResponsesObject,
+  ResponseObject,
 } from "openapi3-ts";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -24,6 +25,7 @@ interface Operation {
     body: string[];
   };
   requestSchema: SchemaObject;
+  responseSchema: SchemaObject;
   requestModelName: string;
   responseModelName: string;
 }
@@ -55,6 +57,7 @@ export class OperationExtractor {
           operation.operationId!.charAt(0).toUpperCase() +
           operation.operationId!.slice(1);
         const { parameters, requestSchema } = this.extractParameters(operation);
+        const responseSchema = this.extractResponseSchema(operation.responses);
 
         result.push({
           id: operation.operationId!,
@@ -68,6 +71,8 @@ export class OperationExtractor {
         });
       });
     });
+
+    return result;
   }
 
   private extractParameters(operation: OperationObject) {
@@ -134,6 +139,7 @@ export class OperationExtractor {
       const requestBodyPropertyPairs = _.toPairs(requestBodySchema.properties);
 
       requestBodyPropertyPairs.map(([name, schema]) => {
+        parameters.body.push(name);
         requestSchema.properties![name] = schema!;
       });
 
@@ -144,5 +150,32 @@ export class OperationExtractor {
     }
 
     return { parameters, requestSchema };
+  }
+
+  private extractResponseSchema(responses: ResponsesObject) {
+    const responsePairs = _.toPairs(responses) as [string, ResponseObject][];
+
+    if (
+      responsePairs.length !== 1 ||
+      !responsePairs.some(
+        ([statusCode]) => Number(statusCode) >= 200 && Number(statusCode) < 300
+      )
+    ) {
+      throw new Error("only one success response must be provided");
+    }
+
+    const responseContent = responsePairs[0][1].content;
+
+    if (!responseContent) {
+      throw new Error("response content must be provided");
+    } else if (!responseContent["application/json"]) {
+      throw new Error(
+        "currently supported content type is only 'application/json'"
+      );
+    } else if (!responseContent["application/json"].schema) {
+      throw new Error("response schema must be provided");
+    }
+
+    return responseContent["application/json"].schema!;
   }
 }
