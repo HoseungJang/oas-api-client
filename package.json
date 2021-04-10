@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "API client generator based on OAS(OpenAPI Specification)",
   "scripts": {
-    "start": "ts-node src/program.ts",
+    "start": "ts-node src/Program.ts",
     "format": "prettier --write 'src/**/*.ts'"
   },
   "repository": {
