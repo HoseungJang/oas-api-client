@@ -2,8 +2,9 @@ import { OpenAPIObject } from "openapi3-ts";
 import * as _ from "lodash";
 import * as fs from "fs/promises";
 
-import { ModelsRenderer } from "./ModelsRenderer";
 import { OperationExtractor } from "./OperationExtractor";
+import { ClientRenderer } from "./ClientRenderer";
+import { ModelsRenderer } from "./ModelsRenderer";
 
 export class ClientGenerator {
   constructor(
@@ -16,15 +17,16 @@ export class ClientGenerator {
       this.APIDefinition.paths
     ).extract();
 
+    const client = await new ClientRenderer(operations).render();
     const models = await new ModelsRenderer({
       ...(this.APIDefinition.components?.schemas ?? {}),
       ..._.chain(operations)
         .map(
           ({
-            requestSchema,
             requestModelName,
-            responseSchema,
+            requestSchema,
             responseModelName,
+            responseSchema,
           }) => [
             [requestModelName, requestSchema],
             [responseModelName, responseSchema],
@@ -35,6 +37,7 @@ export class ClientGenerator {
         .value(),
     }).render();
 
+    await fs.writeFile(`${this.outputDir}/client.ts`, client);
     await fs.writeFile(`${this.outputDir}/models.ts`, models);
   }
 }
