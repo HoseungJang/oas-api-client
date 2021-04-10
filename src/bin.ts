@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command, OptionValues } from "commander";
 import got from "got";
 import { OpenAPIObject } from "openapi3-ts";
