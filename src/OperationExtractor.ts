@@ -12,7 +12,7 @@ import {
 
 type RequestMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-interface Operation {
+export interface Operation {
   id: string;
   path: string;
   method: RequestMethod;
