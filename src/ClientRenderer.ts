@@ -46,12 +46,14 @@ export class ClientRenderer {
       return `
         public async ${operation.id}(params: Models.${operation.requestModelName}): Promise<Models.${operation.responseModelName}> {
           try {
-            return await this.instance.request({
-              url: \`${url}\`,
-              method: "${operation.method}",
-              ${requestBody ?? ""}
-              ${query ?? ""}
-            });
+            return (
+              await this.instance.request({
+                url: \`${url}\`,
+                method: "${operation.method}",
+                ${requestBody ?? ""}
+                ${query ?? ""}
+              })
+            ).data;
           } catch (error) {
             throw error;
           }
