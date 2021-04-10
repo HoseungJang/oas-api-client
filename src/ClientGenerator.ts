@@ -1,6 +1,7 @@
 import { OpenAPIObject } from "openapi3-ts";
 import * as _ from "lodash";
 import * as fs from "fs/promises";
+import * as prettier from "prettier";
 
 import { OperationExtractor } from "./OperationExtractor";
 import { ClientRenderer } from "./ClientRenderer";
@@ -39,5 +40,15 @@ export class ClientGenerator {
 
     await fs.writeFile(`${this.outputDir}/client.ts`, client);
     await fs.writeFile(`${this.outputDir}/models.ts`, models);
+    await fs.writeFile(
+      `${this.outputDir}/index.ts`,
+      prettier.format(
+        `
+          export { Client } from "./client";
+          export * as Models from "./models";
+        `,
+        { semi: true, parser: "babel-ts" }
+      )
+    );
   }
 }
