@@ -19,23 +19,21 @@ export class ModelsRenderer {
   }
 
   public async render() {
-    const getSchemaByName = (name: string) => {
-      return this.schemas[name];
-    };
-
     const schemaPairs = _.chain(this.schemas).toPairs().value();
 
     const models = await Promise.all(
       schemaPairs.map(async ([name, schema]) => {
-        const mappedSchema = traverse(schema).map(function (value) {
+        const updatedSchema = traverse(schema).map(function (value) {
           if (value?.$ref) {
             const splitedRef = (value.$ref as string).split("/");
             const schemaName = splitedRef[splitedRef.length - 1];
-            this.update(getSchemaByName(schemaName));
+            this.update({
+              ...schemaPairs.find(([name]) => name === schemaName)![1],
+            });
           }
         });
 
-        return await compile(mappedSchema, name, { bannerComment: "" });
+        return await compile(updatedSchema, name, { bannerComment: "" });
       })
     );
 
