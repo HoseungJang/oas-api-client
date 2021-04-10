@@ -53,7 +53,7 @@ export class ClientRenderer {
               ${query ?? ""}
             });
           } catch (error) {
-            console.error(error);
+            throw error;
           }
         }
       `;
