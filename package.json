@@ -1,7 +1,13 @@
 {
   "name": "oasis",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "API client generator based on OAS(OpenAPI Specification)",
+  "bin": {
+    "generate": "./dst/bin.js"
+  },
+  "files": [
+    "dst"
+  ],
   "scripts": {
     "start": "ts-node src/Program.ts",
     "format": "prettier --write 'src/**/*.ts'"
