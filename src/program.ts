@@ -46,7 +46,7 @@ class Program {
     }
     fs.mkdirSync(outputDir);
 
-    await new ClientGenerator({ APIDefinition, outputDir }).generate();
+    await new ClientGenerator(APIDefinition, outputDir).generate();
   }
 
   private deleteDirectoryRecursive(path: string) {
