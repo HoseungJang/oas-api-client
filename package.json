@@ -9,7 +9,7 @@
     "dst"
   ],
   "scripts": {
-    "start": "ts-node src/Program.ts",
+    "start": "ts-node src/bin.ts",
     "format": "prettier --write 'src/**/*.ts'",
     "build": "rm -rf dst && tsc"
   },
