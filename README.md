@@ -2,6 +2,6 @@
 
 generate API client library for Typescript based on OAS(OpenAPI Specification)
 
-[🇰🇷 한국어 문서 보기]
+[🇰🇷 한국어 문서 보기](/docs/ko.md)
 
-[🌎 English Documentation]
+[🌎 English Documentation](/docs/en.md)
