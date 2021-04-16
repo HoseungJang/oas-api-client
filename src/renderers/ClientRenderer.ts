@@ -80,4 +80,11 @@ export class ClientRenderer extends BaseRenderer {
       }
     `);
   }
+
+  public renderEntry() {
+    return this.format(`
+      export { Client } from "./client";
+      export * as Models from "./models";
+    `);
+  }
 }
