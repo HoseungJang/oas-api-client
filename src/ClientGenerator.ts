@@ -4,8 +4,8 @@ import * as fs from "fs/promises";
 import * as prettier from "prettier";
 
 import { OperationExtractor } from "./OperationExtractor";
-import { ClientRenderer } from "./ClientRenderer";
-import { ModelsRenderer } from "./ModelsRenderer";
+import { ClientRenderer } from "./renderers/ClientRenderer";
+import { ModelsRenderer } from "./renderers/ModelsRenderer";
 
 export class ClientGenerator {
   constructor(

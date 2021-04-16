@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import * as prettier from "prettier";
 
-import { Operation } from "./OperationExtractor";
+import { Operation } from "../OperationExtractor";
 
 export class ClientRenderer {
   constructor(private readonly operations: Operation[]) {}
