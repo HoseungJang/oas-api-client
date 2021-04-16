@@ -14,4 +14,11 @@ export class BaseRenderer {
   protected format(code: string) {
     return prettier.format(code, this.formatOptions);
   }
+
+  public renderEntry() {
+    return this.format(`
+      export { Client } from "./client";
+      export * as Models from "./models";
+    `);
+  }
 }
