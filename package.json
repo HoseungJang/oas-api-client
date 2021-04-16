@@ -1,6 +1,6 @@
 {
   "name": "oas-api-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "API client generator based on OAS(OpenAPI Specification)",
   "bin": {
     "oas-api-client": "./dst/bin.js"
