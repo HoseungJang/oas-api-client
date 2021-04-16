@@ -12,6 +12,6 @@ export class BaseRenderer {
   }
 
   protected format(code: string) {
-    return prettier.format(code);
+    return prettier.format(code, this.formatOptions);
   }
 }
