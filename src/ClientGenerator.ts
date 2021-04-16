@@ -1,12 +1,10 @@
 import { OpenAPIObject } from "openapi3-ts";
 import * as _ from "lodash";
 import * as fs from "fs/promises";
-import * as prettier from "prettier";
 
 import { OperationExtractor } from "./OperationExtractor";
 import { ClientRenderer } from "./renderers/ClientRenderer";
 import { ModelsRenderer } from "./renderers/ModelsRenderer";
-import { BaseRenderer } from "./renderers/BaseRenderer";
 
 export class ClientGenerator {
   constructor(
@@ -15,12 +13,14 @@ export class ClientGenerator {
   ) {}
 
   public async generate() {
-    const operations = await new OperationExtractor(
-      this.APIDefinition.paths
-    ).extract();
+    const operationExtractor = new OperationExtractor(this.APIDefinition.paths);
+    const operations = await operationExtractor.extract();
 
-    const client = await new ClientRenderer(operations).render();
-    const models = await new ModelsRenderer({
+    const clientRenderer = new ClientRenderer(operations);
+    const entry = clientRenderer.renderEntry();
+    const client = await clientRenderer.render();
+
+    const modelsRenderer = new ModelsRenderer({
       ...(this.APIDefinition.components?.schemas ?? {}),
       ..._.chain(operations)
         .map(
@@ -37,13 +37,12 @@ export class ClientGenerator {
         .flatMap((pairs) => pairs)
         .fromPairs()
         .value(),
-    }).render();
+    });
+    const models = await modelsRenderer.render();
 
+
+    await fs.writeFile(`${this.outputDir}/index.ts`, entry);
     await fs.writeFile(`${this.outputDir}/client.ts`, client);
     await fs.writeFile(`${this.outputDir}/models.ts`, models);
-    await fs.writeFile(
-      `${this.outputDir}/index.ts`,
-      new BaseRenderer().renderEntry()
-    );
   }
 }
