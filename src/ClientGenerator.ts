@@ -6,6 +6,7 @@ import * as prettier from "prettier";
 import { OperationExtractor } from "./OperationExtractor";
 import { ClientRenderer } from "./renderers/ClientRenderer";
 import { ModelsRenderer } from "./renderers/ModelsRenderer";
+import { BaseRenderer } from "./renderers/BaseRenderer";
 
 export class ClientGenerator {
   constructor(
@@ -42,13 +43,7 @@ export class ClientGenerator {
     await fs.writeFile(`${this.outputDir}/models.ts`, models);
     await fs.writeFile(
       `${this.outputDir}/index.ts`,
-      prettier.format(
-        `
-          export { Client } from "./client";
-          export * as Models from "./models";
-        `,
-        { semi: true, parser: "babel-ts" }
-      )
+      new BaseRenderer().renderEntry()
     );
   }
 }
