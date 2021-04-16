@@ -4,10 +4,14 @@ import * as traverse from "traverse";
 import { compile } from "json-schema-to-typescript";
 import * as prettier from "prettier";
 
-export class ModelsRenderer {
+import { BaseRenderer } from "./BaseRenderer";
+
+export class ModelsRenderer extends BaseRenderer {
   private readonly schemas: SchemasObject;
 
   constructor(schemas: SchemasObject) {
+    super();
+
     this.schemas = traverse(schemas).map(function (schema) {
       // set additionalProperties option to prevent generating '[k: string]: unknown' from json-schema-to-typescript
       if (schema?.type === "object") {
@@ -38,9 +42,6 @@ export class ModelsRenderer {
       })
     );
 
-    return prettier.format(models.join("\n"), {
-      semi: true,
-      parser: "babel-ts",
-    });
+    return this.format(models.join("\n"));
   }
 }

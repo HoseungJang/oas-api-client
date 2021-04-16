@@ -1,10 +1,13 @@
 import * as _ from "lodash";
 import * as prettier from "prettier";
 
+import { BaseRenderer } from "./BaseRenderer";
 import { Operation } from "../OperationExtractor";
 
-export class ClientRenderer {
-  constructor(private readonly operations: Operation[]) {}
+export class ClientRenderer extends BaseRenderer {
+  constructor(private readonly operations: Operation[]) {
+    super();
+  }
 
   public async render() {
     const requestMethods = this.operations.map((operation) => {
@@ -61,8 +64,7 @@ export class ClientRenderer {
       `;
     });
 
-    return prettier.format(
-      `
+    return this.format(`
       import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
       import * as Models from "./models";
@@ -76,9 +78,7 @@ export class ClientRenderer {
           this.instance = axios.create(defaultConfig);
         }
         ${requestMethods.join("\n\n")}
-      }
-    `,
-      { semi: true, parser: "babel-ts" }
+      }`
     );
   }
 }
