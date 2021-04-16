@@ -2,7 +2,6 @@ import { SchemasObject } from "openapi3-ts";
 import * as _ from "lodash";
 import * as traverse from "traverse";
 import { compile } from "json-schema-to-typescript";
-import * as prettier from "prettier";
 
 import { BaseRenderer } from "./BaseRenderer";
 

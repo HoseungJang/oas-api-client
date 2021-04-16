@@ -1,5 +1,4 @@
 import * as _ from "lodash";
-import * as prettier from "prettier";
 
 import { BaseRenderer } from "./BaseRenderer";
 import { Operation } from "../OperationExtractor";
@@ -78,7 +77,7 @@ export class ClientRenderer extends BaseRenderer {
           this.instance = axios.create(defaultConfig);
         }
         ${requestMethods.join("\n\n")}
-      }`
-    );
+      }
+    `);
   }
 }
