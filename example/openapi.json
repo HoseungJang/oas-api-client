@@ -1,0 +1,141 @@
+{
+   "openapi": "3.0.1",
+   "info": {
+      "title": "hoseungJangBlogAPI",
+      "version": "1.0.0"
+   },
+   "paths": {
+      "/books": {
+         "get": {
+            "operationId": "getBooksByCursor",
+            "parameters": [
+               {
+                  "required": false,
+                  "name": "cursor",
+                  "in": "query",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/BookListShow"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "post": {
+            "operationId": "createBook",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string"
+                           }
+                        },
+                        "required": [
+                           "name"
+                        ]
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "201": {
+                  "description": "success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/BookShow"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/books/{id}": {
+         "delete": {
+            "operationId": "deleteBookById",
+            "parameters": [
+               {
+                  "required": true,
+                  "name": "id",
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SuccessShow"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components": {
+      "schemas": {
+         "SuccessShow": {
+            "type": "object",
+            "properties": {
+               "success": {
+                  "type": "boolean"
+               }
+            },
+            "required": [
+               "success"
+            ]
+         },
+         "BookListShow": {
+            "type": "object",
+            "properties": {
+               "data": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/BookShow"
+                  }
+               },
+               "nextCursor": {
+                  "type": "number",
+                  "nullable": true
+               }
+            },
+            "required": [
+               "data",
+               "nextCursor"
+            ]
+         },
+         "BookShow": {
+            "type": "object",
+            "properties": {
+               "name": {
+                  "type": "string"
+               }
+            },
+            "required": [
+               "name"
+            ]
+         }
+      }
+   }
+}
