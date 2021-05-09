@@ -6,7 +6,7 @@ export interface BookListShow {
   data: {
     name: string;
   }[];
-  nextCursor: number;
+  nextCursor: number | null;
 }
 
 export interface BookShow {
@@ -21,7 +21,7 @@ export interface GetBooksByCursorResponse {
   data: {
     name: string;
   }[];
-  nextCursor: number;
+  nextCursor: number | null;
 }
 
 export interface CreateBookRequestParameter {
