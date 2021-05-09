@@ -40,7 +40,6 @@ export class ClientGenerator {
     });
     const models = await modelsRenderer.render();
 
-
     await fs.writeFile(`${this.outputDir}/index.ts`, entry);
     await fs.writeFile(`${this.outputDir}/client.ts`, client);
     await fs.writeFile(`${this.outputDir}/models.ts`, models);

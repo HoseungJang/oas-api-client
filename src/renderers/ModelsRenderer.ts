@@ -35,6 +35,18 @@ export class ModelsRenderer extends BaseRenderer {
               ...schemaPairs.find(([name]) => name === schemaName)![1],
             });
           }
+
+          if (value?.nullable) {
+            this.update({
+              anyOf: [
+                {
+                  ...value,
+                  nullable: undefined,
+                },
+                { type: "null" },
+              ],
+            });
+          }
         });
 
         return await compile(updatedSchema, name, { bannerComment: "" });
