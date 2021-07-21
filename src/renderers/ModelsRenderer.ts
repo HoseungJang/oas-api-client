@@ -15,8 +15,8 @@ export class ModelsRenderer extends BaseRenderer {
       // set additionalProperties option to prevent generating '[k: string]: unknown' from json-schema-to-typescript
       if (schema?.type === "object") {
         this.update({
-          ...schema,
           additionalProperties: false,
+          ...schema,
         });
       }
     });
